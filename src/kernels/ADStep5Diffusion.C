@@ -9,7 +9,7 @@
 
 #include "ADStep5Diffusion.h"
 
-registerMooseObject("MooseApp", ADStep5Diffusion);
+registerMooseObject("MooseDealApp", ADStep5Diffusion);
 
 InputParameters
 ADStep5Diffusion::validParams()
