@@ -9,19 +9,15 @@
 
 #pragma once
 
-#include "ADKernelGrad.h"
+#include "ADKernelValue.h"
 
-class ADStep5Diffusion : public ADKernelGrad
+class ADMassSRB : public ADKernelValue
 {
 public:
   static InputParameters validParams();
 
-  ADStep5Diffusion(const InputParameters & parameters);
+  ADMassSRB(const InputParameters & parameters);
 
 protected:
-  virtual ADRealVectorValue precomputeQpResidual() override;
-  const Real & _a1;
-  const Real & _a2;
-  const Real & _r;
-  
+  virtual ADReal precomputeQpResidual() override;
 };

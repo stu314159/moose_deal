@@ -19,10 +19,17 @@ ADStep5Diffusion::validParams()
                              "is computed using forward automatic differentiation"
                              "and there is a non-constant coefficient to the"
                              "laplace operator; see Step-5 deal.II");
+  params.addParam<Real>("stiffness_outer",1.0,"stiffness term 1");
+  params.addParam<Real>("stiffness_inner",20.,"stiffness term 2");
+  params.addParam<Real>("r",0.5,"radius of transition");
   return params;
 }
 
-ADStep5Diffusion::ADStep5Diffusion(const InputParameters & parameters) : ADKernelGrad(parameters) {}
+ADStep5Diffusion::ADStep5Diffusion(const InputParameters & parameters) : ADKernelGrad(parameters),
+_a1(getParam<Real>("stiffness_outer")),
+_a2(getParam<Real>("stiffness_inner")),
+_r(getParam<Real>("r"))
+ {}
 
 ADRealVectorValue
 ADStep5Diffusion::precomputeQpResidual()
@@ -32,10 +39,10 @@ ADStep5Diffusion::precomputeQpResidual()
   ADReal y = _q_point[_qp](1);
  
   ADReal r = std::sqrt(x*x+y*y);
-  ADReal a = 1.;
-  if (r <= 0.5)
+  ADReal a = _a1;
+  if (r <= _r)
   {
-    a = 20.;
+    a = _a2;
   };
   
   return _grad_u[_qp]*a;

@@ -5,7 +5,7 @@
   nt = 12
   rmin = 0
   rmax = 1
-  uniform_refine = 5
+  uniform_refine = 3
 []
 
 [Variables]
@@ -33,6 +33,11 @@
     # need (a(x)*grad_u,grad_phi)
     type = ADStep5Diffusion # need a kernel to give this parameter
     variable = u
+    # parameters added to use step-wise constant a(x,y) -> a(r)
+    # really only works for a polar coordinate system but it's something.
+    stiffness_outer = 1.
+    stiffness_inner = 20.
+    r = 0.5    
   []
   [rhs]
     type = ADBodyForce
