@@ -4,12 +4,17 @@
   uniform_refine = 2
 []
 
-
 [Variables]
   [u]
     family = LAGRANGE
     order = FIRST
     initial_condition = 0.
+  []
+[]
+
+[Functions]
+  [myRHS]
+    type = Step26RHSFunction
   []
 []
 
@@ -22,10 +27,9 @@
   []
   
   [heatsource]
-    type = ADMatHeatSource
-    material_property = volumetric_heat
+    type = ADBodyForce
     variable = u
-    scalar = 1.0
+    function = myRHS
   []
   
   [timederivative]
