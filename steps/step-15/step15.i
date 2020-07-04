@@ -6,20 +6,20 @@
 
 [Adaptivity]
   marker = error_frac
-  steps = 12
+  steps = 3
   [Indicators]
     [temperature_jump]
       type = GradientJumpIndicator
       variable = u
-      scale_by_flux_faces = true
+      scale_by_flux_faces = false
     []
   []
   [Markers]
     [error_frac]
       type = ErrorFractionMarker
       indicator = temperature_jump
-      coarsen = 0.1
-      refine = 0.7
+      coarsen = 0.3
+      refine = 0.6
     []
   []
 []
